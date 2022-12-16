@@ -41,7 +41,7 @@ public class PlayerServiceImpl implements PlayerService {
 	public PlayerDto getPlayerDataById(Integer playerId) {
 
 		Player player = playerRepository.findById(playerId)
-				.orElseThrow(() -> new ResourceNotFoundException("Product", "Product Id", playerId));
+				.orElseThrow(() -> new ResourceNotFoundException("player", "Player Id", playerId));
 
 		return modelMapper.map(player, PlayerDto.class);
 	}
