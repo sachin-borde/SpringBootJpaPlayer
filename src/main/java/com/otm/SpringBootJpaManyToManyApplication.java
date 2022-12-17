@@ -16,31 +16,32 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SpringBootJpaManyToManyApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootJpaManyToManyApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootJpaManyToManyApplication.class, args);
+    }
 
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
-	@Bean
-	public Docket docket() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("player-api")
-				.apiInfo(apiInfo())
-				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.otm.controller"))
-				.paths(PathSelectors.any())
-				.build();
-	}
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("Player API")
-				.description("Spring Boot Player Reference")
-				.licenseUrl("https://www.google.com")
-				.version("1.0")
-				.build();
-	}
+    @Bean
+    public Docket docket() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("player-api")
+                .apiInfo(apiInfo())
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.otm.controller"))
+                .paths(PathSelectors.any())
+                .build();
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("Player API")
+                .description("Spring Boot Player Reference")
+                .licenseUrl("https://www.google.com")
+                .version("1.0")
+                .build();
+    }
 }

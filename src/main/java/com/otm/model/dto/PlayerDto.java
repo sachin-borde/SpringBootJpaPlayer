@@ -17,17 +17,17 @@ import lombok.Setter;
 @Setter
 public class PlayerDto {
 
-	private int playerId;
+    private int playerId;
 
-	@NotEmpty
-	@Size(min = 2, message = "Player name Must Greater than 2 character")
-	private String playerName;
+    @NotEmpty
+    @Size(min = 2, message = "Player name Must Greater than 2 character")
+    private String playerName;
 
-	@NotNull
-	private Long playerBudget;
+    @NotNull
+    private Long playerBudget;
 
-	@NotNull
-	@DateTimeFormat
-	private Date playerDob;
+    @NotNull
+    @DateTimeFormat
+    private Date playerDob;
 
 }

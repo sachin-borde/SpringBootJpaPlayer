@@ -7,16 +7,16 @@ import com.otm.payloads.PlayerResponse;
 
 public interface PlayerService {
 
-	PlayerDto savePlayerData(PlayerDto playerDto);
+    PlayerDto savePlayerData(PlayerDto playerDto);
 
-	PlayerDto getPlayerDataById(Integer playerId);
+    PlayerDto getPlayerDataById(Integer playerId);
 
-	PlayerResponse getAllPlayerData(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+    PlayerResponse getAllPlayerData(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
-	List<PlayerDto> getPlayerDataByName(String keyword);
+    List<PlayerDto> getPlayerDataByName(String keyword);
 
-	PlayerDto updatePlayerDataById(PlayerDto playerDto, Integer playerId);
+    PlayerDto updatePlayerDataById(PlayerDto playerDto, Integer playerId);
 
-	void deletePlayerDataById(Integer playerId);
+    void deletePlayerDataById(Integer playerId);
 
 }

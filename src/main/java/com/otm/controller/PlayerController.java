@@ -1,9 +1,10 @@
 package com.otm.controller;
 
-import java.util.List;
-
-import javax.validation.Valid;
-
+import com.otm.model.dto.PlayerDto;
+import com.otm.payloads.ApiResponse;
+import com.otm.payloads.AppConstants;
+import com.otm.payloads.PlayerResponse;
+import com.otm.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,62 +18,64 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.otm.model.dto.PlayerDto;
-import com.otm.payloads.ApiResponse;
-import com.otm.payloads.AppConstants;
-import com.otm.payloads.PlayerResponse;
-import com.otm.service.PlayerService;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class PlayerController {
 
-	@Autowired
-	private PlayerService playerService;
+    @Autowired
+    private PlayerService playerService;
 
-	@PostMapping("/savePlayerData")
-	public ResponseEntity<PlayerDto> savePlayerData(@Valid @RequestBody PlayerDto playerDto) {
-		PlayerDto savePlayerData = playerService.savePlayerData(playerDto);
-		return new ResponseEntity<PlayerDto>(savePlayerData, HttpStatus.CREATED);
-	}
+    @PostMapping("/savePlayerData")
+    public ResponseEntity<PlayerDto> savePlayerData(@Valid @RequestBody PlayerDto playerDto) {
 
-	@GetMapping("/getPlayerDataById/{playerId}")
-	public ResponseEntity<PlayerDto> getPlayerDataById(@PathVariable("playerId") Integer playerId) {
-		PlayerDto getPlayerDataById = playerService.getPlayerDataById(playerId);
-		return new ResponseEntity<PlayerDto>(getPlayerDataById, HttpStatus.OK);
-	}
+        PlayerDto savePlayerData = playerService.savePlayerData(playerDto);
 
-	@GetMapping("/getAllPlayerData/")
-	public ResponseEntity<PlayerResponse> getAllPlayerData(
-			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY_PLAYER, required = false) String sortBy,
-			@RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
+        return new ResponseEntity<PlayerDto>(savePlayerData, HttpStatus.CREATED);
+    }
 
-		PlayerResponse getAllPlayerData = playerService.getAllPlayerData(pageNumber, pageSize, sortBy, sortDir);
+    @GetMapping("/getPlayerDataById/{playerId}")
+    public ResponseEntity<PlayerDto> getPlayerDataById(@PathVariable("playerId") Integer playerId) {
+        PlayerDto getPlayerDataById = playerService.getPlayerDataById(playerId);
+        return new ResponseEntity<PlayerDto>(getPlayerDataById, HttpStatus.OK);
+    }
 
-		return new ResponseEntity<PlayerResponse>(getAllPlayerData, HttpStatus.OK);
-	}
+    @GetMapping("/getAllPlayerData/")
+    public ResponseEntity<PlayerResponse> getAllPlayerData(
+            @RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+            @RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY_PLAYER, required = false) String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = AppConstants.SORT_DIR, required = false) String sortDir) {
 
-	@GetMapping("/getPlayerDataByName/{keyword}")
-	public ResponseEntity<List<PlayerDto>> getPlayerDataByName(@PathVariable("keyword") String keyword) {
+        PlayerResponse getAllPlayerData = playerService.getAllPlayerData(pageNumber, pageSize, sortBy, sortDir);
 
-		List<PlayerDto> getPlayerDataByName = playerService.getPlayerDataByName(keyword);
+        return new ResponseEntity<PlayerResponse>(getAllPlayerData, HttpStatus.OK);
+    }
 
-		return new ResponseEntity<List<PlayerDto>>(getPlayerDataByName, HttpStatus.OK);
-	}
+    @GetMapping("/getPlayerDataByName/{keyword}")
+    public ResponseEntity<List<PlayerDto>> getPlayerDataByName(@PathVariable("keyword") String keyword) {
 
-	@PutMapping("/updatePlayerDataById/{playerId}")
-	public ResponseEntity<PlayerDto> updatePlayerDataById(@Valid @RequestBody PlayerDto playerDto,
-			@PathVariable("playerId") Integer playerId) {
-		PlayerDto updatePlayerDataById = playerService.updatePlayerDataById(playerDto, playerId);
-		return new ResponseEntity<PlayerDto>(updatePlayerDataById, HttpStatus.CREATED);
-	}
+        List<PlayerDto> getPlayerDataByName = playerService.getPlayerDataByName(keyword);
 
-	@DeleteMapping("/deletePlayerDataById/{playerId}")
-	public ResponseEntity<ApiResponse> deletePlayerDataById(@PathVariable("playerId") Integer playerId) {
-		playerService.deletePlayerDataById(playerId);
-		return new ResponseEntity<ApiResponse>(new ApiResponse("category is deleted successfully", true),
-				HttpStatus.OK);
-	}
+        return new ResponseEntity<List<PlayerDto>>(getPlayerDataByName, HttpStatus.OK);
+    }
+
+    @PutMapping("/updatePlayerDataById/{playerId}")
+    public ResponseEntity<PlayerDto> updatePlayerDataById(@Valid @RequestBody PlayerDto playerDto,
+                                                          @PathVariable("playerId") Integer playerId) {
+        PlayerDto updatePlayerDataById = playerService.updatePlayerDataById(playerDto, playerId);
+
+        return new ResponseEntity<PlayerDto>(updatePlayerDataById, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/deletePlayerDataById/{playerId}")
+    public ResponseEntity<ApiResponse> deletePlayerDataById(@PathVariable("playerId") Integer playerId) {
+
+        playerService.deletePlayerDataById(playerId);
+
+        return new ResponseEntity<ApiResponse>(new ApiResponse("category is deleted successfully", true),
+                HttpStatus.OK);
+    }
 }
